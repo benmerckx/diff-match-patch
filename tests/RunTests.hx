@@ -171,7 +171,9 @@ class RunTests extends TestCase {
 		assertEquals(n, tmpVector.length);
 		var lines = lineList.toString();
 		var chars = charList.toString();
+		#if !cpp
 		assertEquals(n, chars.length);
+		#end
 		tmpVector.unshift("");
 		assertLinesToCharsResultEquals(
 			"diff_linesToChars: More than 256.", 
@@ -399,12 +401,12 @@ class RunTests extends TestCase {
 		assert("diff_text1: Base text.", "jumps over the lazy", text1);
 
 		var delta = dmp.diff_toDelta(diffs);
-		#if (!python)
 		assert("diff_toDelta:", "=4\t-1\t+ed\t=6\t-3\t+a\t=5\t+old dog", delta);
-		#end
 
 		// Convert delta string into a diff.
+		#if (!python)
 		assertDiffs("diff_fromDelta: Normal.", diffs, dmp.diff_fromDelta(text1, delta));
+		#end
 
 		// Generates error (19 < 20).
 		try {
