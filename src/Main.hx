@@ -38,9 +38,16 @@ class Main {
 		//text1 = 'Hello world';
 		//text2 = 'Goodbye world';
 		
+		/*var diffs = DiffMatchPatch.diff_main(text1, text2);
+		//trace(diffs);
+		DiffMatchPatch.diff_cleanupSemantic(diffs);
+		DiffMatchPatch.diff_cleanupEfficiency(diffs);
+		
+		var patches = DiffMatchPatch.patch_make(text1, diffs);*/
+
+		//trace(DiffMatchPatch.patch_apply(patches, text1).text);
 		var patches = DiffMatchPatch.patch_make_texts(text1, text2);
-		trace(DiffMatchPatch.patch_apply(patches, text1).text);
-		trace('Matches: '+text2 == DiffMatchPatch.patch_apply(patches, text1).text);
+		trace(text2 == DiffMatchPatch.patch_apply(patches, text1).text);
 	}
 	
 }
