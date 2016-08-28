@@ -1,7 +1,0 @@
--cp src
--main Main
-#-lib hxjava
-#-js bin/main.js
-#-cmd node bin/main.js
--neko bin/main.n
--cmd neko bin/main.n
