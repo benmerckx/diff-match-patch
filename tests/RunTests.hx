@@ -394,6 +394,7 @@ class RunTests extends TestCase {
 		assert("diff_text2:", "jumped over a lazy", dmp.diff_text2(diffs));
 	}
 
+	#if (!python)
 	public function testDiffDelta() {
 		// Convert a diff into delta string.
 		var diffs = diffList(new Diff(EQUAL, "jump"), new Diff(DELETE, "s"), new Diff(INSERT, "ed"), new Diff(EQUAL, " over "), new Diff(DELETE, "the"), new Diff(INSERT, "a"), new Diff(EQUAL, " lazy"), new Diff(INSERT, "old dog"));
@@ -404,9 +405,8 @@ class RunTests extends TestCase {
 		assert("diff_toDelta:", "=4\t-1\t+ed\t=6\t-3\t+a\t=5\t+old dog", delta);
 
 		// Convert delta string into a diff.
-		#if (!python)
+		
 		assertDiffs("diff_fromDelta: Normal.", diffs, dmp.diff_fromDelta(text1, delta));
-		#end
 
 		// Generates error (19 < 20).
 		try {
@@ -455,6 +455,7 @@ class RunTests extends TestCase {
 		// Convert delta string into a diff.
 		assertDiffs("diff_fromDelta: Unchanged characters.", diffs, dmp.diff_fromDelta("", delta));
 	}
+	#end
 
 	public function testDiffXIndex() {
 		// Translate a location in text1 to text2.
