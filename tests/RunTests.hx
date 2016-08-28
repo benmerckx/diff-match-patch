@@ -28,9 +28,7 @@ class RunTests extends TestCase {
 		var r = new haxe.unit.TestRunner();
 		r.add(new RunTests());
 		r.run();
-		#if sys
-		Sys.exit(r.result.success ? 0 : 1);
-		#end
+		travix.Logger.exit(r.result.success ? 0 : 1);
 	}
 
 	var dmp = new DiffMatchPatch();
