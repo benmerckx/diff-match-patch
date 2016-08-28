@@ -2,11 +2,24 @@
 
 Haxe port of [google-diff-match-patch](https://code.google.com/p/google-diff-match-patch/).
 	
+```haxe
+import dmp.DiffMatchPatch;
+
+class Main {
+	public static function main() {
+		var dmp = new DiffMatchPatch();
+		var patches = dmp.patch_make('Hello world', 'Goodbye world');
+		trace(patches);
+	}
+}
+```
+	
 #### `diff_main(text1, text2) => diffs`
 
-An array of differences is computed which describe the transformation of text1 into text2. Each difference is an array (JavaScript, Lua) or tuple (Python) or Diff object (C++, C#, Objective C, Java). The first element specifies if it is an insertion (1), a deletion (-1) or an equality (0). The second element specifies the affected text.
+An array of differences is computed which describe the transformation of text1 into text2.
 
 #### `diff_main("Good dog", "Bad dog") => [(-1, "Goo"), (1, "Ba"), (0, "d dog")]`
+
 Despite the large number of optimisations used in this function, diff can take a while to compute. The diff_match_patch.Diff_Timeout property is available to set how many seconds any diff's exploration phase may take. The default value is 1.0. A value of 0 disables the timeout and lets diff run until completion. Should diff timeout, the return value will still be a valid difference, though probably non-optimal.
 
 #### `diff_cleanupSemantic(diffs) => null`
@@ -48,7 +61,7 @@ Reduces an array of patch objects to a block of text which looks extremely simil
 
 Parses a block of text (which was presumably created by the patch_toText function) and returns an array of patch objects.
 
-#### `patch_apply(patches, text1) => [text2, results]`
+#### `patch_apply(patches, text1) => {text: text2, applied: results}`
 
-Applies a list of patches to text1. The first element of the return value is the newly patched text. The second element is an array of true/false values indicating which of the patches were successfully applied. [Note that this second element is not too useful since large patches may get broken up internally, resulting in a longer results list than the input with no way to figure out which patch succeeded or failed. A more informative API is in development.]
+Applies a list of patches to text1. The text property of the return value is the newly patched text. The applied property is an array of true/false values indicating which of the patches were successfully applied. [Note that this second element is not too useful since large patches may get broken up internally, resulting in a longer results list than the input with no way to figure out which patch succeeded or failed. A more informative API is in development.]
 The previously mentioned Match_Distance and Match_Threshold properties are used to evaluate patch application on text which does not match exactly. In addition, the diff_match_patch.Patch_DeleteThreshold property determines how closely the text within a major (~64 character) delete needs to match the expected text. If Patch_DeleteThreshold is closer to 0, then the deleted text must match the expected text more closely. If Patch_DeleteThreshold is closer to 1, then the deleted text may contain anything. In most use cases Patch_DeleteThreshold should just be set to the same value as Match_Threshold.

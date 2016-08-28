@@ -39,10 +39,10 @@ typedef LinesToCharsResult = {
  * which means: delete "Hello", add "Goodbye" and keep " world."
  */
 @:enum
-abstract Operation(String) {
-	var DELETE = 'delete';
-	var INSERT = 'insert';
-	var EQUAL = 'equal';
+ abstract Operation(Int) {
+	var DELETE = -1;
+	var EQUAL = 0;
+	var INSERT = 1;
 }
 
 class Character {

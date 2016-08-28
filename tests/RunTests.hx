@@ -21,7 +21,7 @@ import dmp.DiffMatchPatch;
 import haxe.PosInfos;
 import haxe.unit.TestCase;
 
-@:access(DiffMatchPatch)
+@:access(dmp.DiffMatchPatch)
 class RunTests extends TestCase {
 	
 	static function main() {
